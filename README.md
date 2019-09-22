@@ -106,7 +106,8 @@ implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
 
-// To finalize installation of react-native-gesture-handler for Android, make the following modifications to MainActivity.java:
+// To finalize installation of react-native-gesture-handler for Android, make the following modifications to:
+// android/app/src/main/java/com/simple/MainActivity.java
 package com.reactnavigation.example;
 
 import com.facebook.react.ReactActivity;
@@ -138,33 +139,43 @@ public class MainActivity extends ReactActivity {
 ```js
 // index.js
 import {AppRegistry} from 'react-native';
-import SimpleApp from './App';
+import App from './App';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => SimpleApp);
+AppRegistry.registerComponent(appName, () => App);
 
 
 // App.js
 import React, {Component} from 'react';
-import {Text} from 'react-native';
-import {StackNavigator} from 'react-navigation';
+import {View, Text, StyleSheet} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
 class HomeScreen extends Component {
-  static navigationOptions = {
-    title: 'Welcome',
-  };
   render() {
-    return <Text>Hello, Navigation!</Text>;
+    return (
+      <View style={styles.container}>
+        <Text>Home Screen</Text>
+      </View>
+    );
   }
 }
 
-const SimpleApp = StackNavigator({
+const AppNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
   },
 });
 
-export default SimpleApp;
+export default createAppContainer(AppNavigator);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 ```
 
 
