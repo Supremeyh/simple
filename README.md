@@ -161,13 +161,33 @@ class HomeScreen extends Component {
   }
 }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-  },
-});
+class ProfileScreen extends Component {
+  render() {
+    return (
+      <View>
+        <Text>Profile Screen</Text>
+      </View>
+    );
+  }
+}
 
-export default createAppContainer(AppNavigator);
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Profile: {
+      screen: ProfileScreen,
+      path: 'people/:name',
+      navigationOptions: ({navigation}) => ({
+        title: `${navigation.state.params.name} profile`,
+      }),
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  },
+);
+
+const AppContainer = createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
   container: {
@@ -176,6 +196,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+// export default createAppContainer(AppNavigator);
+export default class App extends Component {
+  render() {
+    return <AppContainer />;
+  }
+}
 ```
 
 
@@ -207,8 +234,7 @@ console.ignoredYellowBox = ['Warning: ...']
 方式二：你也可以通过在“Developer Menu”下的“Dev Settings”中设置你的电脑ip来进行调试。
 
 
-* rcteventemitter is not a registered callable module
-react-native start --reset-cache
+* 查看端口占用
 sudo lsof -i :8081 , 或者 ps aux | grep node
 kill -9 {PID}
 
