@@ -1,23 +1,30 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 class HomeScreen extends Component {
   render() {
+    const {navigation} = this.props;
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
+        <Button
+          onPress={() => {
+            navigation.navigate('Detail');
+          }}
+          title="Go Details"
+        />
       </View>
     );
   }
 }
 
-class ProfileScreen extends Component {
+class DetailsScreen extends Component {
   render() {
     return (
       <View>
-        <Text>Profile Screen</Text>
+        <Text>Details Screen</Text>
       </View>
     );
   }
@@ -26,11 +33,11 @@ class ProfileScreen extends Component {
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
-    Profile: {
-      screen: ProfileScreen,
-      path: 'people/:name',
+    Details: {
+      screen: DetailsScreen,
+      path: 'detail/:name',
       navigationOptions: ({navigation}) => ({
-        title: `${navigation.state.params.name} profile`,
+        title: `${navigation.state.params.name} Detail`,
       }),
     },
   },
@@ -49,7 +56,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default createAppContainer(AppNavigator);
 export default class App extends Component {
   render() {
     return <AppContainer />;
