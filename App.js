@@ -73,6 +73,14 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+    },
+    navigationOptions: {
+      tabBarLable: 'Home',
+    },
   },
 );
 
