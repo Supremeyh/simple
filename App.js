@@ -60,6 +60,33 @@ class DetailsScreen extends Component {
   }
 }
 
+class UserScreen extends Component {
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerTitle: <logoTitle />,
+      headerRight: (
+        <Button
+          onPress={navigation.getParams('increaseCount')}
+          title="+1"
+          color="#fff"
+        />
+      ),
+    };
+  };
+
+  state = {
+    count: 0,
+  };
+
+  componentWillMount() {
+    this.props.navigation.setParams({increaseCount: this._increaseCount});
+  }
+
+  _increaseCount = () => {
+    this.setState({count: this.state.count + 1});
+  };
+}
+
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
